@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/css.css">
+        <script src="js/App.js"></script>
+        <script src="js/main.js"></script>
+        <title>Title</title>
+    </head>
+    <body>
+        <div class="app_container">
+            <div id="menu" class="container">
+                <h3>DES</h3>
+                <div>
+                    <div>
+                        <select id="chooseAction">
+                            <option selected disabled hidden>Выбери действие</option>
+                            <option value="toCode">Закодировать</option>
+                            <option value="toDecode">Декодировать</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input class="input" id="inputText" type="value" placeholder="Текст для кодирования">    
+                    </div>
+                    <div>
+                        <input class="input" id="inputKey" type="value" placeholder="Ключевое слово">
+                    </div>
+                    <div>
+                        <input class="input" id="inputCode" type="value" placeholder="Закодированный текст">
+                    </div>
+                    <div>
+                        <input type="button" id="buttonEnter" value="Поехали!">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
