@@ -23,6 +23,27 @@ class App {
         });
     }
 
+    // Сгенерировать блок со случайными битами
+    generateRandomBlock() {
+        let bin = '';
+        for (let i = 0; i < this.sizeOfBlock; i++) {
+            bin += Math.round(Math.random(0, 1));
+        }
+        return bin;
+    }
+
+    // Удалить блоки со случайными битами
+    deleteRandomBlocks() {
+        for (let i = 0; i < this.blocks.length / 2; i++) {
+            this.blocks[i * 2 + 1] = '';
+        }
+        for (let i = 0; i < this.blocks.length / 2; i++) {
+            if (this.blocks[i] == '') {
+                this.blocks.splice(i, 1);
+            }
+        }
+    }
+
     // Дополнить строку до правильного размера (по умолчанию знаком "*", можно поменять на пробел)
     stringToRightLength(input) {
         while (((input.length * this.sizeOfChar) % this.sizeOfBlock) != 0) {
@@ -38,8 +59,8 @@ class App {
         const lengthOfBlock = input.length / blocksLength;
 
         for (let i = 0; i < blocksLength; i++) {
-            this.blocks[i] = input.substring(i * lengthOfBlock, (i + 1) * lengthOfBlock);
-            this.blocks[i] = this.stringToBinaryFormat(this.blocks[i]);
+            this.blocks.push(this.stringToBinaryFormat(input.substring(i * lengthOfBlock, (i + 1) * lengthOfBlock)));
+            this.blocks.push(this.generateRandomBlock());
         }
     }
 
@@ -103,6 +124,8 @@ class App {
         return (this.XOR(this.f(L, key), R) + L);
     }
 
+ 
+
     // XOR
     XOR(s1, s2) {
         let result = "";
@@ -148,6 +171,7 @@ class App {
         this.сutStringIntoBlocks(text);
         key = this.correctKeyWord(key, text.length / (2 * this.blocks.length));
         key = this.stringToBinaryFormat(key);
+        console.log(this.blocks);
         for (let j = 0; j < this.quantityOfRounds; j++) {
             for (let i = 0; i < this.blocks.length; i++) {
                 this.blocks[i] = this.encodeDES_OneRound(this.blocks[i], key);
@@ -172,6 +196,9 @@ class App {
         key = this.stringToBinaryFormat(key);
         code = this.stringToBinaryFormat(code);
         this.cutBinaryStringIntoBlocks(code);
+        console.log(this.blocks);
+        this.deleteRandomBlocks();
+        console.log(this.blocks);
         for (let j = 0; j < this.quantityOfRounds; j++) {
             for (let i = 0; i < this.blocks.length; i++) {
                 this.blocks[i] = this.decodeDES_OneRound(this.blocks[i], key);
